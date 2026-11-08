@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#104c9a"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="WiFi Voucher">
+<link rel="manifest" href="manifest.webmanifest"><title>WiFi Voucher Print</title>
+<style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#14243a;background:#f3f6fb}
+*{box-sizing:border-box}body{margin:0;padding:16px 14px 40px;max-width:720px;margin-inline:auto}
+header{background:linear-gradient(135deg,#0b3674,#1768bd);color:white;border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 8px 24px #0b367422}
+header h1{font-size:21px;margin:0 0 5px}header p{margin:0;color:#dbeafe;font-size:13px}
+.card{background:white;border:1px solid #e4eaf2;border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 3px 12px #17365d08}
+label{font-weight:650;font-size:13px;display:block;margin-bottom:8px}
+select,input,button{font:inherit}select,input[type=file]{width:100%;padding:12px;border:1px solid #d5deea;border-radius:11px;background:#fff;color:#14243a}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f3f7fc;border-radius:12px;padding:12px}
+.stat small{display:block;color:#64748b;font-size:11px}.stat strong{font-size:22px}
+.codebox{border:1px dashed #9bb8df;background:#f7faff;border-radius:14px;padding:22px 12px;text-align:center;margin:12px 0}
+.codebox small{color:#64748b;letter-spacing:1.5px;font-size:10px}.codebox strong{display:block;font-size:30px;letter-spacing:2px;color:#1055a4;overflow-wrap:anywhere;margin-top:6px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}button{border:0;border-radius:12px;padding:13px 12px;font-weight:700;cursor:pointer}
+.primary{background:#1459a6;color:white}.secondary{background:#eaf1fa;color:#17477f}.success{background:#e5f7ed;color:#137343}
+button:disabled{opacity:.4;cursor:not-allowed}.note{font-size:12px;color:#64748b;line-height:1.5}
+.list{max-height:240px;overflow:auto;border:1px solid #e5eaf1;border-radius:10px}
+.item{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid #edf1f6;font-size:13px}
+.item:last-child{border:0}.muted{color:#738197}
+</style></head>
+<body>
+<header><h1>📶 WIFI WARUNG PAK DARUM</h1><p>Voucher Printing System · Thermal 58mm</p></header>
+<section class="card">
+ <label for="typeSelect">Pilih jenis voucher</label>
+ <select id="typeSelect"><option value="6jam">Voucher 6 Jam</option><option value="1hari">Voucher 1 Hari</option><option value="7hari">Voucher 7 Hari</option><option value="30hari">Voucher 30 Hari</option></select>
+ <p class="note" id="sourceInfo">Data voucher tersedia di aplikasi.</p>
+ <div class="stats"><div class="stat"><small>Total</small><strong id="total">0</strong></div><div class="stat"><small>Belum dicetak</small><strong id="remaining">0</strong></div><div class="stat"><small>Sudah dicetak</small><strong id="printed">0</strong></div></div>
+</section>
+<section class="card">
+ <label>Voucher berikutnya</label><div class="codebox"><small>KODE VOUCHER</small><strong id="currentCode">—</strong></div>
+ <div class="actions"><button class="primary" id="printBtn">🖨️ Cetak via Mobile Print Util</button><button class="success" id="doneBtn">✓ Konfirmasi tercetak</button></div>
+ <p class="note" id="printHelp">Tekan cetak untuk membuka Mobile Print Util. Setelah struk benar-benar keluar, kembali ke web lalu tekan Konfirmasi tercetak.</p>
+ <div class="actions"><button class="secondary" id="prevBtn">← Sebelumnya</button><button class="secondary" id="nextBtn">Berikutnya →</button></div>
+ <p class="note" id="position">Belum ada voucher.</p>
+</section>
+<section class="card">
+ <label for="csvInput">Import / tambah file CSV</label><input id="csvInput" type="file" accept=".csv,text/csv" multiple>
+ <p class="note">Aplikasi membaca kolom <b>Username</b> sebagai kode voucher saja. Password dan kolom lain tidak ditampilkan maupun dicetak. CSV tambahan masuk ke jenis voucher yang sedang dipilih.</p>
+ <button class="secondary" id="resetBtn" style="width:100%;margin-top:8px">Reset status cetak jenis ini</button>
+</section>
+<section class="card"><label>Daftar voucher</label><div class="list" id="voucherList"></div></section>
+<p class="note">Pastikan Mobile Print Util sudah terpasang dan printer sudah terhubung. Status voucher baru ditandai setelah kamu kembali dari aplikasi printer dan menekan Konfirmasi tercetak.</p>
+<script src="app.js"></script>
+</body></html>
