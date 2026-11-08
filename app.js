@@ -44,25 +44,25 @@ function base64Utf8(value){
  let binary="";bytes.forEach(b=>binary+=String.fromCharCode(b));
  return btoa(binary);
 }
-function buildReceiptHtml(code){
+function buildEscposReceipt(code){
  const planText={"6jam":"PAKET: 6 JAM","1hari":"PAKET: 1 HARI","7hari":"PAKET: 7 HARI","30hari":"PAKET: 30 HARI"};
- const safeCode=escapeHtml(code);
- return `<div style="width:48mm;margin:0 auto;text-align:center;font-family:Arial,sans-serif;color:#000">
- <div style="font-size:15px;font-weight:900;margin:0 0 5px">WIFI WARUNG PAK DARUM</div>
- <div style="font-size:11px;margin-bottom:7px">VOUCHER INTERNET</div>
- <hr style="border:0;border-top:1px dashed #000">
- <div style="font-size:13px;font-weight:bold;margin:7px 0">${planText[currentType]}</div>
- <div style="font-size:10px;margin:5px 0">KODE VOUCHER</div>
- <div style="font-size:23px;font-weight:900;letter-spacing:1px;overflow-wrap:anywhere;margin:6px 0">${safeCode}</div>
- <hr style="border:0;border-top:1px dashed #000">
- <div style="font-size:9px;margin-top:7px">Silakan masukkan kode untuk akses internet</div>
- </div>`;
+ // Mobile Print Util ESC/POS markers: #ss# small, #sl# large, #lf# line feed.
+ // Keep the receipt compact; make only the voucher code large.
+ return "#escps#"
+  +"#ss#WIFI WARUNG PAK DARUM#lf#"
+  +"#ss#VOUCHER INTERNET#lf#"
+  +"#ss#------------------------------#lf#"
+  +"#ss#"+planText[currentType]+"#lf#"
+  +"#ss#KODE VOUCHER#lf#"
+  +"#sl#"+String(code).replace(/[^A-Za-z0-9_-]/g,"")+"#lf#"
+  +"#ss#------------------------------#lf#"
+  +"#ss#Masukkan kode untuk akses internet#lf#"
+  +"#lf##lf#";
 }
 $("printBtn").addEventListener("click",()=>{
  const c=codes()[currentIndex];if(!c)return;
- const payload="#deb64#"+base64Utf8(buildReceiptHtml(c));
- const target="com.samathosoft.webprint://"+payload;
- $("printHelp").textContent="Membuka Mobile Print Util. Setelah struk tercetak, kembali ke halaman ini dan tekan Konfirmasi tercetak.";
+ const target="com.samathosoft.webprint://"+buildEscposReceipt(c);
+ $("printHelp").textContent="Membuka Mobile Print Util dalam mode ESC/POS teks. Periksa hasil cetak; setelah benar-benar tercetak, kembali ke halaman ini dan tekan Konfirmasi tercetak.";
  window.location.href=target;
 });
 $("doneBtn").addEventListener("click",()=>{const c=codes()[currentIndex];if(!c)return;const p=printed();p.add(c);persistPrinted(p);const next=currentUnprintedIndex();currentIndex=next>=0?next:Math.min(currentIndex+1,codes().length-1);render()});
