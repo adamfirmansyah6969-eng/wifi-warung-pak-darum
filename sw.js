@@ -1,1 +1,11 @@
-const CACHE="wifi-voucher-v1";self.addEventListener("install",e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(["./","./index.html","./app.js","./manifest.webmanifest"]))));self.addEventListener("fetch",e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
+// Kasir WiFi: jangan cache halaman agar pembaruan GitHub Pages segera terbaca.
+self.addEventListener('install', event => { self.skipWaiting(); });
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.map(key => caches.delete(key)));
+    await self.registration.unregister();
+    const clientsList = await self.clients.matchAll({type:'window', includeUncontrolled:true});
+    clientsList.forEach(client => client.navigate(client.url));
+  })());
+});

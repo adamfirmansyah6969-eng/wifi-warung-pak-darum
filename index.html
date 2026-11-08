@@ -2,49 +2,107 @@
 <html lang="id">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#104c9a"><meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="WiFi Voucher">
-<link rel="manifest" href="manifest.webmanifest"><title>WiFi Voucher Print</title>
+<meta name="theme-color" content="#0b3d91"><title>Kasir Voucher | WiFi Warung Pak Darum</title>
 <style>
-:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#14243a;background:#f3f6fb}
-*{box-sizing:border-box}body{margin:0;padding:16px 14px 40px;max-width:720px;margin-inline:auto}
-header{background:linear-gradient(135deg,#0b3674,#1768bd);color:white;border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 8px 24px #0b367422}
-header h1{font-size:21px;margin:0 0 5px}header p{margin:0;color:#dbeafe;font-size:13px}
-.card{background:white;border:1px solid #e4eaf2;border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 3px 12px #17365d08}
-label{font-weight:650;font-size:13px;display:block;margin-bottom:8px}
-select,input,button{font:inherit}select,input[type=file]{width:100%;padding:12px;border:1px solid #d5deea;border-radius:11px;background:#fff;color:#14243a}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f3f7fc;border-radius:12px;padding:12px}
-.stat small{display:block;color:#64748b;font-size:11px}.stat strong{font-size:22px}
-.codebox{border:1px dashed #9bb8df;background:#f7faff;border-radius:14px;padding:22px 12px;text-align:center;margin:12px 0}
-.codebox small{color:#64748b;letter-spacing:1.5px;font-size:10px}.codebox strong{display:block;font-size:30px;letter-spacing:2px;color:#1055a4;overflow-wrap:anywhere;margin-top:6px}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}button{border:0;border-radius:12px;padding:13px 12px;font-weight:700;cursor:pointer}
-.primary{background:#1459a6;color:white}.secondary{background:#eaf1fa;color:#17477f}.success{background:#e5f7ed;color:#137343}
-button:disabled{opacity:.4;cursor:not-allowed}.note{font-size:12px;color:#64748b;line-height:1.5}
-.list{max-height:240px;overflow:auto;border:1px solid #e5eaf1;border-radius:10px}
-.item{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid #edf1f6;font-size:13px}
-.item:last-child{border:0}.muted{color:#738197}
+:root{--navy:#082b66;--blue:#1264d8;--sky:#eaf3ff;--gold:#f5c542;--ink:#14233b;--muted:#718096;--line:#e2eaf4;--bg:#f4f7fb;--green:#16834a;--red:#c43b42}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink)}
+header{background:linear-gradient(120deg,#082b66,#1264d8);color:white;padding:22px max(18px,calc((100% - 1080px)/2));box-shadow:0 5px 18px #092e6630}
+.brand{font-weight:900;letter-spacing:.04em;font-size:19px}.sub{opacity:.8;font-size:12px;margin-top:4px}
+main{max-width:1080px;margin:20px auto;padding:0 14px 40px}.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:16px}.tab{border:1px solid var(--line);background:white;color:var(--navy);border-radius:12px;padding:11px 15px;font-weight:750;white-space:nowrap}.tab.active{background:var(--navy);color:white}
+.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:15px;box-shadow:0 5px 18px #15345c08}
+h2{font-size:18px;margin:0 0 13px}h3{font-size:15px;margin:0 0 8px}.muted{color:var(--muted);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{background:var(--sky);padding:13px;border-radius:14px}.stat b{display:block;font-size:24px;color:var(--navy)}.stat span{font-size:11px;color:#536b8e}
+.products{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.product{border:1.5px solid var(--line);border-radius:15px;padding:15px;text-align:left;background:white;color:var(--ink)}.product.selected{border-color:var(--blue);background:#eef5ff;box-shadow:0 0 0 2px #1264d820}.product strong{display:block;font-size:16px}.price{font-weight:900;color:var(--blue);font-size:20px;margin:4px 0}.stock{font-size:12px;color:var(--muted)}
+label{display:block;font-size:12px;font-weight:750;margin:12px 0 6px}input,select{width:100%;padding:12px;border:1px solid #d6e0ed;border-radius:10px;background:white;font:inherit;color:var(--ink)}
+.paygrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pay{padding:12px;border:1.5px solid var(--line);background:white;border-radius:12px;font-weight:800}.pay.selected{border-color:var(--blue);background:#eef5ff;color:var(--navy)}
+button{cursor:pointer}.primary{border:0;background:var(--blue);color:white;padding:13px 16px;border-radius:11px;font-weight:850;width:100%;margin-top:14px}.secondary{border:1px solid var(--line);background:white;color:var(--navy);padding:10px 13px;border-radius:10px;font-weight:750}.danger{color:var(--red)}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.hidden{display:none!important}
+.notice{padding:11px 13px;background:#fff8df;border:1px solid #f4df9b;border-radius:11px;font-size:12px;color:#6c5515}
+table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid var(--line)}th{color:var(--muted)}
+.receipt{width:58mm;max-width:100%;margin:0 auto;background:white;color:black;padding:4mm;font:12px/1.35 monospace}.receipt h3{text-align:center;font-size:14px;margin:0}.receipt .center{text-align:center}.receipt .code{font-size:23px;font-weight:900;letter-spacing:1px;text-align:center;border:1px dashed #222;padding:8px 2px;margin:8px 0;overflow-wrap:anywhere}.receipt hr{border:0;border-top:1px dashed #333;margin:7px 0}
+#receiptArea{display:none}
+@media(max-width:650px){.grid{grid-template-columns:repeat(2,1fr)}main{margin-top:13px}.panel{padding:14px}}
+@media print{body{background:white}header,main,.no-print{display:none!important}#receiptArea{display:block!important}.receipt{margin:0;width:58mm;max-width:58mm;padding:2mm}}
 </style></head>
 <body>
-<header><h1>📶 WIFI WARUNG PAK DARUM</h1><p>Voucher Printing System · Thermal 58mm</p></header>
-<section class="card">
- <label for="typeSelect">Pilih jenis voucher</label>
- <select id="typeSelect"><option value="6jam">Voucher 6 Jam</option><option value="1hari">Voucher 1 Hari</option><option value="7hari">Voucher 7 Hari</option><option value="30hari">Voucher 30 Hari</option></select>
- <p class="note" id="sourceInfo">Data voucher tersedia di aplikasi.</p>
- <div class="stats"><div class="stat"><small>Total</small><strong id="total">0</strong></div><div class="stat"><small>Belum dicetak</small><strong id="remaining">0</strong></div><div class="stat"><small>Sudah dicetak</small><strong id="printed">0</strong></div></div>
+<header><div class="brand">📶 @WIFI WARUNG PAK DARUM</div><div class="sub">KASIR VOUCHER INTERNET • MODE SATU PERANGKAT</div></header>
+<main>
+<div class="tabs no-print">
+<button class="tab active" data-tab="sale">Kasir</button><button class="tab" data-tab="stock">Stok Voucher</button><button class="tab" data-tab="history">Riwayat</button><button class="tab" data-tab="settings">Pengaturan</button>
+</div>
+<section id="sale" class="view">
+<div class="grid panel">
+<div class="stat"><b id="s6">0</b><span>Stok 6 Jam</span></div><div class="stat"><b id="s1">0</b><span>Stok 1 Hari</span></div><div class="stat"><b id="s7">0</b><span>Stok 7 Hari</span></div><div class="stat"><b id="s30">0</b><span>Stok 30 Hari</span></div>
+</div>
+<div class="panel">
+<h2>1. Pilih Paket Voucher</h2>
+<div class="products" id="products"></div>
+<h2 style="margin-top:18px">2. Metode Pembayaran</h2>
+<div class="paygrid"><button class="pay selected" data-pay="Tunai">💵 Tunai</button><button class="pay" data-pay="QRIS">▦ QRIS</button></div>
+<div id="qrisNote" class="notice hidden" style="margin-top:10px">Pembayaran QRIS statis: minta pelanggan scan QRIS milik warung, lalu kasir periksa notifikasi/riwayat transaksi sebelum menekan tombol konfirmasi.</div>
+<label for="buyer">Nama pelanggan (opsional)</label><input id="buyer" placeholder="Nama pelanggan">
+<button class="primary" id="sell">Konfirmasi pembayaran & ambil voucher</button>
+<p class="muted">Kode hanya dialokasikan setelah kasir mengonfirmasi pembayaran. Pastikan pembayaran QRIS benar-benar masuk.</p>
+</div>
+<div class="panel hidden" id="saleResult">
+<h2>Transaksi berhasil dicatat</h2><div id="saleSummary"></div>
+<div class="row"><button class="secondary" id="printBtn">Cetak struk</button><button class="secondary" id="copyBtn">Salin kode</button></div>
+<button class="secondary" id="waBtn" style="width:100%;margin-top:8px">Kirim kode via WhatsApp</button>
+</div>
 </section>
-<section class="card">
- <label>Voucher berikutnya</label><div class="codebox"><small>KODE VOUCHER</small><strong id="currentCode">—</strong></div>
- <div class="actions"><button class="primary" id="printBtn">🖨️ Cetak via Mobile Print Util</button><button class="success" id="doneBtn">✓ Konfirmasi tercetak</button></div>
- <p class="note" id="printHelp">Tekan cetak untuk membuka Mobile Print Util. Setelah struk benar-benar keluar, kembali ke web lalu tekan Konfirmasi tercetak.</p>
- <div class="actions"><button class="secondary" id="prevBtn">← Sebelumnya</button><button class="secondary" id="nextBtn">Berikutnya →</button></div>
- <p class="note" id="position">Belum ada voucher.</p>
+<section id="stock" class="view hidden">
+<div class="panel"><h2>Impor stok voucher dari CSV</h2><div class="notice">Pilih CSV MikroTik per paket. Aplikasi hanya membaca kolom <b>Username</b> sebagai kode voucher. Kolom Password diabaikan dan tidak ditampilkan.</div>
+<label>Paket CSV</label><select id="csvPackage"><option value="6">6 JAM</option><option value="1">1 HARI</option><option value="7">7 HARI</option><option value="30">30 HARI</option></select>
+<label>File CSV</label><input type="file" id="csvFile" accept=".csv,text/csv">
+<button class="primary" id="importBtn">Impor CSV</button><p id="importMsg" class="muted"></p></div>
+<div class="panel"><h2>Ringkasan stok</h2><div id="stockTable"></div><p class="muted">Voucher yang sudah terjual tidak akan ditawarkan kembali pada perangkat/browser ini.</p></div>
 </section>
-<section class="card">
- <label for="csvInput">Import / tambah file CSV</label><input id="csvInput" type="file" accept=".csv,text/csv" multiple>
- <p class="note">Aplikasi membaca kolom <b>Username</b> sebagai kode voucher saja. Password dan kolom lain tidak ditampilkan maupun dicetak. CSV tambahan masuk ke jenis voucher yang sedang dipilih.</p>
- <button class="secondary" id="resetBtn" style="width:100%;margin-top:8px">Reset status cetak jenis ini</button>
+<section id="history" class="view hidden"><div class="panel"><h2>Riwayat transaksi</h2><div class="row"><button class="secondary" id="exportBtn">Ekspor CSV</button><button class="secondary danger" id="clearHistory">Hapus riwayat</button></div><div id="historyTable" style="overflow:auto;margin-top:12px"></div></div></section>
+<section id="settings" class="view hidden">
+<div class="panel"><h2>Pengaturan Warung</h2><label>Nama warung</label><input id="shopName" value="@WIFI WARUNG PAK DARUM"><label>Nomor WhatsApp warung (opsional, format 628xxx)</label><input id="shopWa" placeholder="628xxxxxxxxxx"><label>Gambar QRIS (opsional, hanya ditampilkan pada layar kasir)</label><input type="file" id="qrisImage" accept="image/*"><div id="qrisPreview"></div><button class="primary" id="saveSettings">Simpan pengaturan</button></div>
+<div class="panel"><h2>Cadangan data</h2><p class="muted">Data tersimpan di browser/perangkat ini. Ekspor cadangan secara berkala. Menghapus data situs/browser dapat menghapus stok dan riwayat yang sudah diimpor.</p><button class="secondary" id="backup">Unduh cadangan JSON</button><label>Pulihkan cadangan</label><input type="file" id="restoreFile" accept=".json,application/json"></div>
 </section>
-<section class="card"><label>Daftar voucher</label><div class="list" id="voucherList"></div></section>
-<p class="note">Pastikan Mobile Print Util sudah terpasang dan printer sudah terhubung. Status voucher baru ditandai setelah kamu kembali dari aplikasi printer dan menekan Konfirmasi tercetak.</p>
-<script src="app.js"></script>
-</body></html>
+</main>
+<div id="receiptArea"><div class="receipt" id="receipt"></div></div>
+<script>
+const KEY='wpd_cashier_v1';
+const packages={6:{label:'6 JAM',price:2000},1:{label:'1 HARI',price:3000},7:{label:'7 HARI',price:15000},30:{label:'30 HARI',price:50000}};
+let db=load(), chosen='6', payment='Tunai', lastSale=null, qrisData='';
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{vouchers:{6:[],1:[],7:[],30:[]},sales:[],settings:{shopName:'@WIFI WARUNG PAK DARUM',shopWa:''}}}catch(e){return {vouchers:{6:[],1:[],7:[],30:[]},sales:[],settings:{shopName:'@WIFI WARUNG PAK DARUM',shopWa:''}}}}
+function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function soldSet(){return new Set(db.sales.map(x=>x.code))}
+function available(k){let sold=soldSet();return (db.vouchers[k]||[]).filter(x=>!sold.has(x))}
+function money(n){return 'Rp'+Number(n).toLocaleString('id-ID')}
+function render(){
+ for(let k of ['6','1','7','30'])document.getElementById('s'+k).textContent=available(k).length;
+ document.getElementById('products').innerHTML=Object.entries(packages).map(([k,p])=>`<button class="product ${chosen===k?'selected':''}" data-pkg="${k}"><strong>${p.label}</strong><div class="price">${money(p.price)}</div><div class="stock">Stok tersedia: ${available(k).length}</div></button>`).join('');
+ document.querySelectorAll('[data-pkg]').forEach(b=>b.onclick=()=>{chosen=b.dataset.pkg;render()});
+ document.getElementById('stockTable').innerHTML='<table><tr><th>Paket</th><th>Total impor</th><th>Tersedia</th><th>Terjual</th></tr>'+Object.entries(packages).map(([k,p])=>`<tr><td>${p.label}</td><td>${(db.vouchers[k]||[]).length}</td><td>${available(k).length}</td><td>${db.sales.filter(s=>s.pkg===k).length}</td></tr>`).join('')+'</table>';
+ document.getElementById('historyTable').innerHTML=db.sales.length?'<table><tr><th>Waktu</th><th>Paket</th><th>Kode</th><th>Bayar</th><th>Jumlah</th></tr>'+db.sales.slice().reverse().map(s=>`<tr><td>${esc(new Date(s.time).toLocaleString('id-ID'))}</td><td>${packages[s.pkg].label}</td><td><b>${esc(s.code)}</b></td><td>${s.payment}</td><td>${money(s.amount)}</td></tr>`).join('')+'</table>':'<p class="muted">Belum ada transaksi.</p>';
+ document.getElementById('shopName').value=db.settings.shopName||'@WIFI WARUNG PAK DARUM';document.getElementById('shopWa').value=db.settings.shopWa||'';
+}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==b.dataset.tab));});
+document.querySelectorAll('.pay').forEach(b=>b.onclick=()=>{payment=b.dataset.pay;document.querySelectorAll('.pay').forEach(x=>x.classList.toggle('selected',x===b));document.getElementById('qrisNote').classList.toggle('hidden',payment!=='QRIS')});
+document.getElementById('sell').onclick=()=>{
+ let list=available(chosen);if(!list.length){alert('Stok paket ini kosong. Impor CSV voucher terlebih dahulu.');return}
+ if(payment==='QRIS'&&!confirm('Pastikan pembayaran QRIS sudah masuk ke rekening/merchant warung. Lanjutkan alokasi voucher?'))return;
+ let code=list[0];lastSale={id:Date.now(),time:new Date().toISOString(),pkg:chosen,code,payment,amount:packages[chosen].price,buyer:document.getElementById('buyer').value.trim()};
+ db.sales.push(lastSale);save();showSale(lastSale);
+};
+function receiptHTML(s){let p=packages[s.pkg];return `<h3>${esc(db.settings.shopName||'@WIFI WARUNG PAK DARUM')}</h3><div class="center">VOUCHER INTERNET</div><hr>Waktu: ${new Date(s.time).toLocaleString('id-ID')}<br>Paket: ${p.label}<br>Harga: ${money(p.price)}<br>Bayar: ${s.payment}<hr><div class="center">KODE VOUCHER</div><div class="code">${esc(s.code)}</div><div class="center">Masukkan kode pada halaman login WiFi.<br>Terima kasih telah membeli!</div><hr><div class="center">WIFI WARUNG PAK DARUM</div>`}
+function showSale(s){document.getElementById('saleResult').classList.remove('hidden');document.getElementById('saleSummary').innerHTML=`<p><b>${packages[s.pkg].label}</b> · ${money(s.amount)} · ${s.payment}</p><div style="font-size:26px;font-weight:900;letter-spacing:2px;text-align:center;padding:15px;background:#eef5ff;border-radius:12px">${esc(s.code)}</div><p class="muted">Kode sudah ditandai terjual dan tidak akan dipilih lagi.</p>`;document.getElementById('receipt').innerHTML=receiptHTML(s)}
+document.getElementById('printBtn').onclick=()=>window.print();
+document.getElementById('copyBtn').onclick=()=>navigator.clipboard?.writeText(lastSale.code).then(()=>alert('Kode disalin.')).catch(()=>alert('Kode: '+lastSale.code));
+document.getElementById('waBtn').onclick=()=>{let s=lastSale,txt=`Voucher WiFi Warung Pak Darum\\nPaket: ${packages[s.pkg].label}\\nKode: ${s.code}\\nHarga: ${money(s.amount)}`;let wa=db.settings.shopWa?`https://wa.me/${db.settings.shopWa}?text=${encodeURIComponent(txt)}`:`https://wa.me/?text=${encodeURIComponent(txt)}`;window.open(wa,'_blank')};
+function parseCSV(text){let rows=[],row=[],v='',q=false;for(let i=0;i<text.length;i++){let c=text[i];if(c==='"'&&q&&text[i+1]==='"'){v+='"';i++}else if(c==='"')q=!q;else if(c===','&&!q){row.push(v);v=''}else if((c==='\n'||c==='\r')&&!q){if(c==='\r'&&text[i+1]==='\n')i++;row.push(v);if(row.some(x=>x.trim()))rows.push(row);row=[];v=''}else v+=c}row.push(v);if(row.some(x=>x.trim()))rows.push(row);return rows}
+document.getElementById('importBtn').onclick=async()=>{let f=document.getElementById('csvFile').files[0],k=document.getElementById('csvPackage').value;if(!f){alert('Pilih file CSV terlebih dahulu.');return}let rows=parseCSV(await f.text()),head=rows.shift().map(x=>x.trim().toLowerCase().replace(/^\ufeff/,'')),idx=head.indexOf('username');if(idx<0){alert('Kolom Username tidak ditemukan.');return}let before=db.vouchers[k].length;let seen=new Set(Object.values(db.vouchers).flat());for(let r of rows){let code=(r[idx]||'').trim();if(code&&!seen.has(code)){db.vouchers[k].push(code);seen.add(code)}}save();document.getElementById('importMsg').textContent=`Berhasil menambahkan ${db.vouchers[k].length-before} kode unik ke paket ${packages[k].label}. Kolom Password tidak dibaca.`;};
+document.getElementById('exportBtn').onclick=()=>{let rows=[['Waktu','Paket','Kode','Pembayaran','Jumlah'],...db.sales.map(s=>[s.time,packages[s.pkg].label,s.code,s.payment,s.amount])];download('riwayat-penjualan-wifi.csv',rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n'))};
+document.getElementById('clearHistory').onclick=()=>{if(confirm('Hapus seluruh riwayat transaksi? Stok voucher akan kembali tersedia. Pastikan sudah ekspor laporan.')){db.sales=[];save()}};
+function download(name,data,type='text/plain'){let a=document.createElement('a'),u=URL.createObjectURL(new Blob([data],{type}));a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
+document.getElementById('saveSettings').onclick=()=>{db.settings.shopName=document.getElementById('shopName').value.trim()||'@WIFI WARUNG PAK DARUM';db.settings.shopWa=document.getElementById('shopWa').value.trim();save();alert('Pengaturan disimpan.')};
+document.getElementById('qrisImage').onchange=e=>{let f=e.target.files[0];if(!f)return;let rd=new FileReader();rd.onload=()=>{qrisData=rd.result;document.getElementById('qrisPreview').innerHTML=`<img alt="QRIS" src="${qrisData}" style="max-width:180px;margin-top:10px">`};rd.readAsDataURL(f)};
+document.getElementById('backup').onclick=()=>download('backup-kasir-wifi.json',JSON.stringify(db,null,2),'application/json');
+document.getElementById('restoreFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let x=JSON.parse(await f.text());if(!x.vouchers||!x.sales)throw Error();db=x;save();alert('Cadangan dipulihkan.')}catch(err){alert('File cadangan tidak valid.')}};
+render();
+</script></body></html>
