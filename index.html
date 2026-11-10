@@ -1,108 +1,307 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b3d91"><title>Kasir Voucher | WiFi Warung Pak Darum</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b2a5b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kasir WiFi">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>KASIR WIFI — WARUNG PAK DARUM</title>
 <style>
-:root{--navy:#082b66;--blue:#1264d8;--sky:#eaf3ff;--gold:#f5c542;--ink:#14233b;--muted:#718096;--line:#e2eaf4;--bg:#f4f7fb;--green:#16834a;--red:#c43b42}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink)}
-header{background:linear-gradient(120deg,#082b66,#1264d8);color:white;padding:22px max(18px,calc((100% - 1080px)/2));box-shadow:0 5px 18px #092e6630}
-.brand{font-weight:900;letter-spacing:.04em;font-size:19px}.sub{opacity:.8;font-size:12px;margin-top:4px}
-main{max-width:1080px;margin:20px auto;padding:0 14px 40px}.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:16px}.tab{border:1px solid var(--line);background:white;color:var(--navy);border-radius:12px;padding:11px 15px;font-weight:750;white-space:nowrap}.tab.active{background:var(--navy);color:white}
-.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:15px;box-shadow:0 5px 18px #15345c08}
-h2{font-size:18px;margin:0 0 13px}h3{font-size:15px;margin:0 0 8px}.muted{color:var(--muted);font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{background:var(--sky);padding:13px;border-radius:14px}.stat b{display:block;font-size:24px;color:var(--navy)}.stat span{font-size:11px;color:#536b8e}
-.products{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.product{border:1.5px solid var(--line);border-radius:15px;padding:15px;text-align:left;background:white;color:var(--ink)}.product.selected{border-color:var(--blue);background:#eef5ff;box-shadow:0 0 0 2px #1264d820}.product strong{display:block;font-size:16px}.price{font-weight:900;color:var(--blue);font-size:20px;margin:4px 0}.stock{font-size:12px;color:var(--muted)}
-label{display:block;font-size:12px;font-weight:750;margin:12px 0 6px}input,select{width:100%;padding:12px;border:1px solid #d6e0ed;border-radius:10px;background:white;font:inherit;color:var(--ink)}
-.paygrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pay{padding:12px;border:1.5px solid var(--line);background:white;border-radius:12px;font-weight:800}.pay.selected{border-color:var(--blue);background:#eef5ff;color:var(--navy)}
-button{cursor:pointer}.primary{border:0;background:var(--blue);color:white;padding:13px 16px;border-radius:11px;font-weight:850;width:100%;margin-top:14px}.secondary{border:1px solid var(--line);background:white;color:var(--navy);padding:10px 13px;border-radius:10px;font-weight:750}.danger{color:var(--red)}
-.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.hidden{display:none!important}
-.notice{padding:11px 13px;background:#fff8df;border:1px solid #f4df9b;border-radius:11px;font-size:12px;color:#6c5515}
-table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid var(--line)}th{color:var(--muted)}
-.receipt{width:58mm;max-width:100%;margin:0 auto;background:white;color:black;padding:4mm;font:12px/1.35 monospace}.receipt h3{text-align:center;font-size:14px;margin:0}.receipt .center{text-align:center}.receipt .code{font-size:23px;font-weight:900;letter-spacing:1px;text-align:center;border:1px dashed #222;padding:8px 2px;margin:8px 0;overflow-wrap:anywhere}.receipt hr{border:0;border-top:1px dashed #333;margin:7px 0}
-#receiptArea{display:none}
-@media(max-width:650px){.grid{grid-template-columns:repeat(2,1fr)}main{margin-top:13px}.panel{padding:14px}}
-@media print{body{background:white}header,main,.no-print{display:none!important}#receiptArea{display:block!important}.receipt{margin:0;width:58mm;max-width:58mm;padding:2mm}}
-</style></head>
+:root{--navy:#0b2a5b;--royal:#1458c4;--blue:#0070f0;--gold:#d4a017;--gold2:#f2c94c;--bg:#f4f6fb;--card:#fff;--ink:#17233b;--mut:#64748b;--line:#e2e8f0;--green:#15803d;--red:#b91c1c;--radius:16px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+body{padding-bottom:92px}
+header{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,#0b2a5b,#1458c4);color:#fff;padding:14px 16px calc(12px + env(safe-area-inset-top));box-shadow:0 2px 12px rgba(11,42,91,.25)}
+header .row{display:flex;align-items:center;gap:12px;max-width:960px;margin:0 auto}
+.logo{width:46px;height:46px;border-radius:12px;background:var(--gold);color:#0b2a5b;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;flex:none}
+header h1{font-size:17px;margin:0;line-height:1.2;letter-spacing:.3px}
+header p{margin:2px 0 0;font-size:12px;opacity:.85}
+header .sp{flex:1}
+.btn-lock{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:8px 12px;font-size:13px;cursor:pointer}
+main{max-width:960px;margin:0 auto;padding:14px 14px 0}
+.page{display:none;animation:fade .22s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+h2{font-size:20px;margin:6px 2px 12px;color:var(--navy)}
+h3{font-size:16px;margin:0 0 10px;color:var(--navy)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(15,23,42,.05)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:560px){.grid3{grid-template-columns:1fr 1fr}}
+.stat{border-radius:14px;padding:14px;color:#fff;min-height:92px}
+.stat small{display:block;font-size:12px;opacity:.9}
+.stat b{font-size:21px;display:block;margin-top:4px}
+.stat span{font-size:12px;opacity:.9}
+.s1{background:linear-gradient(135deg,#0b2a5b,#1458c4)}.s2{background:linear-gradient(135deg,#1458c4,#0070f0)}.s3{background:linear-gradient(135deg,#b8860b,#d4a017)}.s4{background:linear-gradient(135deg,#0f766e,#14b8a6)}.s5{background:linear-gradient(135deg,#334155,#64748b)}.s6{background:linear-gradient(135deg,#7c3aed,#a855f7)}
+.warn{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:14px}
+.warn b{color:#92400e}
+.muted{color:var(--mut);font-size:13px;line-height:1.5}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:14px 16px;font-size:16px;font-weight:700;cursor:pointer;text-align:center}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-blue{background:var(--blue);color:#fff}.btn-navy{background:var(--navy);color:#fff}.btn-gold{background:var(--gold);color:#0b2a5b}.btn-ghost{background:#eef2f7;color:var(--navy);border:1px solid var(--line)}.btn-red{background:#fee2e2;color:var(--red);border:1px solid #fecaca}.btn-green{background:var(--green);color:#fff}
+.btn-sm{width:auto;display:inline-block;padding:9px 13px;font-size:14px;border-radius:10px}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 6px;color:#334155}
+input,select,textarea{width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:12px;font-size:16px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--blue);border-color:var(--blue)}
+.pkg{border:2px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer;background:#fff}
+.pkg.sel{border-color:var(--gold);background:#fffdf0;box-shadow:0 0 0 2px #fde68a}
+.pkg .t{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pkg b{font-size:17px}.pkg .price{font-size:19px;color:var(--navy);font-weight:800}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px}
+.b-ok{background:#dcfce7;color:#166534}.b-low{background:#fef3c7;color:#92400e}.b-out{background:#fee2e2;color:#991b1b}.b-qris{background:#dbeafe;color:#1e40af}.b-cash{background:#fef3c7;color:#92400e}.b-cancel{background:#fee2e2;color:#991b1b}.b-done{background:#dcfce7;color:#166534}
+.seg{display:flex;gap:8px}.seg button{flex:1;padding:13px;border-radius:12px;border:2px solid var(--line);background:#fff;font-size:16px;font-weight:700;cursor:pointer}
+.seg button.sel{border-color:var(--navy);background:var(--navy);color:#fff}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:9px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;color:var(--mut);text-transform:uppercase}
+.tblwrap{overflow-x:auto}
+.txn{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:#fff}
+.txn .top{display:flex;justify-content:space-between;gap:8px;font-weight:700}
+.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;letter-spacing:1px;background:#f1f5f9;border-radius:8px;padding:6px 9px;display:inline-block}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid var(--line);padding:6px 4px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:space-around}
+nav button{flex:1;border:0;background:none;font-size:11px;color:var(--mut);cursor:pointer;padding:6px 2px;border-radius:10px}
+nav button .ic{font-size:21px;display:block;line-height:1.1}
+nav button.on{color:var(--navy);font-weight:800}
+.modal{position:fixed;inset:0;background:rgba(2,6,23,.6);display:none;align-items:flex-end;justify-content:center;z-index:50}
+.modal.open{display:flex}
+.sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:640px;max-height:88vh;overflow:auto;padding:20px 18px calc(22px + env(safe-area-inset-bottom))}
+.receipt{font-family:ui-monospace,Menlo,Consolas,monospace;text-align:center;border:1px dashed #94a3b8;border-radius:12px;padding:16px 10px;background:#fff}
+.receipt .big{font-size:26px;font-weight:900;letter-spacing:2px;margin:10px 0}
+#lock{position:fixed;inset:0;background:linear-gradient(160deg,#0b2a5b,#1458c4);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+#lock .box{background:#fff;border-radius:20px;padding:26px 22px;width:100%;max-width:360px;text-align:center}
+#lock input{text-align:center;font-size:26px;letter-spacing:8px;font-weight:800}
+canvas{width:100%;height:180px}
+.kv{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.kv b{text-align:right}
+footer{max-width:960px;margin:18px auto 0;padding:0 16px;color:var(--mut);font-size:12px;line-height:1.6}
+.hidden{display:none!important}
+</style>
+</head>
 <body>
-<header><div class="brand">📶 @WIFI WARUNG PAK DARUM</div><div class="sub">KASIR VOUCHER INTERNET • MODE SATU PERANGKAT</div></header>
+<header><div class="row">
+<div class="logo">W</div>
+<div><h1 id="hdrName">KASIR WIFI WARUNG PAK DARUM</h1><p id="hdrWifi">@WIFI WARUNG PAK DARUM &bull; Kasir Voucher WiFi</p></div>
+<div class="sp"></div><button class="btn-lock" id="btnLock" type="button">🔒 Kunci</button>
+</div></header>
+
 <main>
-<div class="tabs no-print">
-<button class="tab active" data-tab="sale">Kasir</button><button class="tab" data-tab="stock">Stok Voucher</button><button class="tab" data-tab="history">Riwayat</button><button class="tab" data-tab="settings">Pengaturan</button>
+<!-- DASHBOARD -->
+<section class="page active" id="page-dashboard">
+<h2>Dashboard</h2>
+<div id="lowStockBox"></div>
+<div class="card"><h3>🔍 Cek Voucher</h3>
+<p class="muted">Masukkan kode voucher untuk melihat status dan perkiraan sisa waktunya. Pelanggan juga bisa cek sendiri di halaman <a href="cek.html">cek.html</a> (tanpa PIN).</p>
+<div style="display:flex;gap:8px"><input id="checkCode" placeholder="Contoh: ABC1234" style="flex:1;text-transform:uppercase" autocomplete="off"><button class="btn btn-navy btn-sm" id="btnCheck" type="button" style="padding:12px 18px">Cek</button></div>
+<div id="checkResult" style="margin-top:10px"></div></div>
+<div class="grid2">
+<div class="stat s1"><small>Penjualan hari ini</small><b id="dSales">Rp0</b><span id="dSalesSub">0 transaksi</span></div>
+<div class="stat s2"><small>Voucher terjual hari ini</small><b id="dSold">0</b><span>kode voucher</span></div>
+<div class="stat s3"><small>Total stok tersedia</small><b id="dStock">0</b><span id="dStockSub">semua paket</span></div>
+<div class="stat s4"><small>Tunai hari ini</small><b id="dCash">Rp0</b><span>QRIS: <span id="dQrisInline">Rp0</span></span></div>
+<div class="stat s5"><small>Total QRIS hari ini</small><b id="dQris">Rp0</b><span>manual — bukan verifikasi otomatis</span></div>
+<div class="stat s6"><small>Paket paling laris</small><b id="dBest" style="font-size:17px">—</b><span id="dBestSub">7 hari terakhir</span></div>
 </div>
-<section id="sale" class="view">
-<div class="grid panel">
-<div class="stat"><b id="s6">0</b><span>Stok 6 Jam</span></div><div class="stat"><b id="s1">0</b><span>Stok 1 Hari</span></div><div class="stat"><b id="s7">0</b><span>Stok 7 Hari</span></div><div class="stat"><b id="s30">0</b><span>Stok 30 Hari</span></div>
+<div class="card"><h3>📊 Penjualan 7 hari terakhir</h3><canvas id="chart7" width="640" height="180"></canvas><p class="muted" id="chartNote">Grafik dihitung dari transaksi berstatus selesai.</p></div>
+<div class="card"><h3>🕒 Transaksi terbaru</h3><div id="recentTx"></div></div>
+</section>
+
+<!-- KASIR -->
+<section class="page" id="page-kasir">
+<h2>Kasir</h2>
+<div class="card"><h3>Pilih paket voucher</h3><div id="pkgList"></div></div>
+<div class="card">
+<h3>Detail transaksi</h3>
+<label>Nama pelanggan (opsional)</label>
+<input id="custName" type="text" placeholder="Contoh: Budi" maxlength="60" autocomplete="off">
+<label>No. WA pelanggan (opsional)</label>
+<input id="custWa" type="tel" inputmode="tel" placeholder="Contoh: 081234567890 — untuk kirim kode via WA" maxlength="16" autocomplete="off">
+<label>Kode voucher tertentu (opsional)</label>
+<input id="specificCode" type="text" placeholder="Kosongkan = kode otomatis. Isi bila pelanggan membawa struk cetak massal." maxlength="30" autocomplete="off" style="text-transform:uppercase">
+<p class="muted">Bila diisi, transaksi memakai kode itu (harus tersedia untuk paket yang dipilih). Bila kosong, sistem mengambil stok terlama.</p>
+<label>Kode promo (opsional)</label>
+<input id="promoCode" type="text" placeholder="Contoh: HEMAT500" maxlength="20" autocomplete="off" style="text-transform:uppercase">
+<p class="muted" id="promoMsg"></p>
+<label>Metode pembayaran</label>
+<div class="seg"><button type="button" id="mCash" class="sel">💵 TUNAI</button><button type="button" id="mQris">📱 QRIS</button></div>
+<div id="cashBox">
+<label>Uang diterima (Rp)</label>
+<input id="cashRecv" type="number" inputmode="numeric" min="0" step="500" placeholder="0">
+<div class="kv"><span>Total bayar</span><b id="cashTotal">Rp0</b></div>
+<div class="kv"><span>Kembalian</span><b id="cashChange">Rp0</b></div>
+<p class="muted" id="cashWarn"></p>
 </div>
-<div class="panel">
-<h2>1. Pilih Paket Voucher</h2>
-<div class="products" id="products"></div>
-<h2 style="margin-top:18px">2. Metode Pembayaran</h2>
-<div class="paygrid"><button class="pay selected" data-pay="Tunai">💵 Tunai</button><button class="pay" data-pay="QRIS">▦ QRIS</button></div>
-<div id="qrisNote" class="notice hidden" style="margin-top:10px">Pembayaran QRIS statis: minta pelanggan scan QRIS milik warung, lalu kasir periksa notifikasi/riwayat transaksi sebelum menekan tombol konfirmasi.</div>
-<label for="buyer">Nama pelanggan (opsional)</label><input id="buyer" placeholder="Nama pelanggan">
-<button class="primary" id="sell">Konfirmasi pembayaran & ambil voucher</button>
-<p class="muted">Kode hanya dialokasikan setelah kasir mengonfirmasi pembayaran. Pastikan pembayaran QRIS benar-benar masuk.</p>
+<div id="qrisBox" class="hidden">
+<label>Scan QRIS di bawah ini</label>
+<div style="text-align:center"><img id="qrisImg" alt="Kode QRIS" style="max-width:240px;width:100%;border:1px solid var(--line);border-radius:12px;display:none">
+<p class="muted" id="qrisEmpty">Belum ada gambar QRIS. Upload di menu Pengaturan.</p></div>
+<div class="kv"><span>Nominal dibayar</span><b id="qrisTotal">Rp0</b></div>
+<label style="display:flex;gap:10px;align-items:flex-start;font-weight:500"><input type="checkbox" id="qrisChecked" style="width:22px;height:22px;flex:none;margin-top:2px"> Saya sudah memeriksa pembayaran ini di aplikasi rekening / merchant. QRIS di versi ini <b>tidak terverifikasi otomatis</b>.</label>
 </div>
-<div class="panel hidden" id="saleResult">
-<h2>Transaksi berhasil dicatat</h2><div id="saleSummary"></div>
-<div class="row"><button class="secondary" id="printBtn">Cetak struk</button><button class="secondary" id="copyBtn">Salin kode</button></div>
-<button class="secondary" id="waBtn" style="width:100%;margin-top:8px">Kirim kode via WhatsApp</button>
+<button class="btn btn-gold" id="btnReview" type="button" style="margin-top:16px">Lanjut ke Ringkasan →</button>
 </div>
 </section>
-<section id="stock" class="view hidden">
-<div class="panel"><h2>Impor stok voucher dari CSV</h2><div class="notice">Pilih CSV MikroTik per paket. Aplikasi hanya membaca kolom <b>Username</b> sebagai kode voucher. Kolom Password diabaikan dan tidak ditampilkan.</div>
-<label>Paket CSV</label><select id="csvPackage"><option value="6">6 JAM</option><option value="1">1 HARI</option><option value="7">7 HARI</option><option value="30">30 HARI</option></select>
-<label>File CSV</label><input type="file" id="csvFile" accept=".csv,text/csv">
-<button class="primary" id="importBtn">Impor CSV</button><p id="importMsg" class="muted"></p></div>
-<div class="panel"><h2>Ringkasan stok</h2><div id="stockTable"></div><p class="muted">Voucher yang sudah terjual tidak akan ditawarkan kembali pada perangkat/browser ini.</p></div>
+
+<!-- STOK -->
+<section class="page" id="page-stok">
+<h2>Stok Voucher</h2>
+<div class="card"><h3>Import CSV (format MikroTik)</h3>
+<p class="muted">Format CSV MikroTik: <b>Username, Password, Profile, Time Limit, Data Limit, Comment</b> (contoh: <span class="code">ABC1234, ABC1234, voucher-6-jam-2000, 6h</span>). Kolom <b>Username</b> dibaca sebagai kode voucher, <b>Profile + Time Limit</b> dipakai untuk menebak paket otomatis (tampil di bawah — periksa, kalau salah ganti manual). Kolom <b>Password diabaikan sepenuhnya</b> — tidak disimpan, tidak ditampilkan, tidak dicetak.</p>
+<label>Paket untuk file ini</label>
+<select id="impPkg"></select>
+<label>File CSV</label>
+<input id="impFile" type="file" accept=".csv,text/csv">
+<button class="btn btn-navy" id="btnImport" type="button" style="margin-top:12px">Import CSV</button>
+<p class="muted" id="impResult"></p>
+<p class="muted">Pilih file CSV — paket akan terdeteksi otomatis dari Profile. Contoh format: <span class="code">Username,Password,Profile,Time Limit,Data Limit,Comment</span>. <button type="button" class="btn btn-ghost btn-sm" id="btnSampleCsv">Unduh contoh CSV</button> <button type="button" class="btn btn-ghost btn-sm" id="btnDemoStock">Muat stok contoh (demo)</button></p>
+</div>
+<div class="card"><h3>🖨️ Cetak Massal Voucher</h3>
+<p class="muted">Cetak banyak struk voucher sekaligus (satu halaman 58mm per voucher, lengkap dengan QR + kode besar) untuk stok di warung. Voucher yang dicetak <b>belum terjual</b> — saat pelanggan membayar, kasir isi kode dari struk itu di kolom "Kode voucher tertentu" di menu Kasir.</p>
+<label>Paket</label><select id="bulkPkg"></select>
+<label>Jumlah (maks 50)</label><input id="bulkQty" type="number" min="1" max="50" value="10">
+<button class="btn btn-navy" id="btnBulkPdf" type="button" style="margin-top:12px">🖨️ Buat PDF Cetak Massal</button></div>
+<div class="card"><h3>✨ Buat Voucher Otomatis</h3>
+<p class="muted">Buat kode voucher baru langsung dari aplikasi (huruf/angka tanpa 0, O, 1, I, L agar tidak salah baca). <b>PENTING:</b> kode ini belum ada di MikroTik — setelah dibuat, ekspor CSV di bawah lalu import ke MikroTik/User Manager, baru bisa dipakai pelanggan.</p>
+<label>Paket</label><select id="genPkg"></select>
+<label>Jumlah (maks 100)</label><input id="genQty" type="number" min="1" max="100" value="20">
+<label>Panjang kode (5–12 karakter)</label><input id="genLen" type="number" min="5" max="12" value="7">
+<label>Awalan kode (opsional, maks 4 karakter)</label><input id="genPrefix" type="text" maxlength="4" placeholder="Contoh: WPD" style="text-transform:uppercase">
+<button class="btn btn-gold" id="btnGenerate" type="button" style="margin-top:12px">✨ Buat Voucher</button></div>
+<div class="card"><h3>⬇ Ekspor CSV untuk MikroTik</h3>
+<p class="muted">Ekspor stok tersedia dalam format CSV MikroTik (<span class="code">Username,Password,Profile,Time Limit,Data Limit,Comment</span>) untuk diimport ke router. File ini berisi password (= kode voucher) — hanya untuk admin.</p>
+<label>Paket</label><select id="expPkg"></select>
+<button class="btn btn-ghost" id="btnExportMikrotik" type="button" style="margin-top:12px">⬇ Ekspor CSV MikroTik</button></div>
+<div class="card"><h3>Ringkasan stok</h3><div id="stockSummary"></div></div>
+<div class="card"><h3>Daftar kode tersedia</h3>
+<label>Cari kode / filter paket</label>
+<div style="display:flex;gap:8px"><input id="stockSearch" placeholder="Cari kode voucher…" style="flex:1"><select id="stockFilter" style="width:150px"></select></div>
+<div id="stockList" style="margin-top:12px"></div>
+<p class="muted">Password tidak pernah ditampilkan di sini. Kode yang sudah terjual tidak muncul di daftar tersedia.</p>
+</div>
 </section>
-<section id="history" class="view hidden"><div class="panel"><h2>Riwayat transaksi</h2><div class="row"><button class="secondary" id="exportBtn">Ekspor CSV</button><button class="secondary danger" id="clearHistory">Hapus riwayat</button></div><div id="historyTable" style="overflow:auto;margin-top:12px"></div></div></section>
-<section id="settings" class="view hidden">
-<div class="panel"><h2>Pengaturan Warung</h2><label>Nama warung</label><input id="shopName" value="@WIFI WARUNG PAK DARUM"><label>Nomor WhatsApp warung (opsional, format 628xxx)</label><input id="shopWa" placeholder="628xxxxxxxxxx"><label>Gambar QRIS (opsional, hanya ditampilkan pada layar kasir)</label><input type="file" id="qrisImage" accept="image/*"><div id="qrisPreview"></div><button class="primary" id="saveSettings">Simpan pengaturan</button></div>
-<div class="panel"><h2>Cadangan data</h2><p class="muted">Data tersimpan di browser/perangkat ini. Ekspor cadangan secara berkala. Menghapus data situs/browser dapat menghapus stok dan riwayat yang sudah diimpor.</p><button class="secondary" id="backup">Unduh cadangan JSON</button><label>Pulihkan cadangan</label><input type="file" id="restoreFile" accept=".json,application/json"></div>
+
+<!-- MEMBER -->
+<section class="page" id="page-member">
+<h2>Member &amp; Stempel</h2>
+<div class="card"><h3>🎁 Beli 5x, gratis 1x Paket Mabar</h3>
+<p class="muted">Setiap transaksi = 1 stempel untuk member (dikenali dari nama / nomor WA). Setelah 5 stempel, member bisa menukar dengan 1 Paket Mabar (6 Jam) gratis. Stempel bertambah otomatis saat kasir menjual dengan nama atau nomor WA pelanggan.</p>
+<div id="memberSummary"></div></div>
+<div class="card"><h3>Daftar member</h3>
+<input id="memberSearch" placeholder="Cari nama / nomor WA…" autocomplete="off">
+<div id="memberList" style="margin-top:12px"></div></div>
+</section>
+
+<!-- RIWAYAT -->
+<section class="page" id="page-riwayat">
+<h2>Riwayat Transaksi</h2>
+<div class="card">
+<div style="display:flex;gap:8px;flex-wrap:wrap"><input id="txSearch" placeholder="Cari no. transaksi / kode voucher…" style="flex:1;min-width:180px"><input id="txDate" type="date" style="width:170px"><select id="txMethod" style="width:140px"><option value="">Semua metode</option><option value="TUNAI">TUNAI</option><option value="QRIS">QRIS</option></select></div>
+<div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-ghost btn-sm" id="btnTxCsv" type="button">⬇ Ekspor CSV</button><button class="btn btn-ghost btn-sm" id="btnTxClear" type="button">Bersihkan filter</button></div>
+</div>
+<div id="txList"></div>
+</section>
+
+<!-- LAPORAN -->
+<section class="page" id="page-laporan">
+<h2>Laporan &amp; Tutup Kas</h2>
+<div class="card"><h3>Periode laporan</h3>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" data-per="today" type="button">Hari ini</button><button class="btn btn-ghost btn-sm" data-per="week" type="button">7 hari</button><button class="btn btn-ghost btn-sm" data-per="month" type="button">Bulan ini</button><button class="btn btn-ghost btn-sm" id="btnRepCsv" type="button">⬇ Ekspor CSV laporan</button></div>
+<div id="repBody" style="margin-top:12px"></div>
+</div>
+<div class="card"><h3>📊 Statistik — 30 hari terakhir</h3>
+<div id="statsBody"></div>
+<h3 style="margin-top:14px">🕐 Jam paling ramai</h3>
+<canvas id="chartHour" width="640" height="180"></canvas>
+<p class="muted" id="hourNote"></p>
+<h3 style="margin-top:14px">📅 Hari paling ramai</h3>
+<div id="weekdayBars"></div>
+<h3 style="margin-top:14px">👥 Member terbaik</h3>
+<div id="topMembers"></div></div>
+<div class="card"><h3>Tutup kas harian</h3>
+<p class="muted">QRIS <b>tidak</b> dihitung sebagai uang tunai. Saldo yang seharusnya = saldo awal + tunai hari ini.</p>
+<label>Saldo kas awal (Rp)</label><input id="closeOpen" type="number" min="0" step="500" value="0">
+<div class="kv"><span>Tunai hari ini</span><b id="closeCash">Rp0</b></div>
+<div class="kv"><span>QRIS hari ini (terpisah)</span><b id="closeQris">Rp0</b></div>
+<div class="kv"><span>Saldo kas seharusnya</span><b id="closeExpected">Rp0</b></div>
+<label>Saldo kas aktual di laci (Rp)</label><input id="closeActual" type="number" min="0" step="500" value="0">
+<div class="kv"><span>Selisih (aktual − seharusnya)</span><b id="closeDiff">Rp0</b></div>
+<label>Catatan</label><textarea id="closeNote" rows="2" placeholder="Contoh: ada uang kembalian lebih…"></textarea>
+<button class="btn btn-navy" id="btnClose" type="button" style="margin-top:12px">Simpan Tutup Kas</button>
+<p class="muted" id="closeMsg"></p>
+</div>
+<div class="card"><h3>Riwayat tutup kas</h3><div id="closeList"></div></div>
+</section>
+
+<!-- PENGATURAN -->
+<section class="page" id="page-pengaturan">
+<h2>Pengaturan</h2>
+<div class="card"><h3>🏪 Nama warung &amp; WiFi</h3>
+<label>Nama warung</label><input id="setShop" maxlength="80">
+<label>Nama WiFi (tampil di struk)</label><input id="setWifi" maxlength="80">
+<label>Nomor WhatsApp (opsional, format 62812…)</label><input id="setWa" inputmode="tel" placeholder="6281234567890">
+<label>Alamat login hotspot (opsional)</label><input id="setHotspot" inputmode="url" placeholder="Contoh: http://192.168.88.1/login">
+<p class="muted">Alamat halaman login hotspot MikroTik. QR di struk akan membuka alamat ini dengan username &amp; password terisi — bila halaman login warung mendukung isi otomatis dari URL. Bila dikosongkan, QR hanya berisi kode voucher. Ganti 192.168.88.1 dengan IP hotspot warung.</p>
+<button class="btn btn-blue" id="btnSaveShop" type="button" style="margin-top:12px">Simpan</button></div>
+<div class="card"><h3>💰 Harga paket (Rp)</h3><div id="priceForm"></div>
+<button class="btn btn-blue" id="btnSavePrice" type="button" style="margin-top:12px">Simpan Harga</button></div>
+<div class="card"><h3>🎟️ Kode Promo</h3>
+<p class="muted">Kode promo dipotong dari harga paket di Kasir. Contoh yang sudah aktif: <b>HEMAT500</b> (potongan Rp500, semua paket).</p>
+<label>Kode promo baru</label><input id="promoCodeIn" placeholder="Contoh: HEMAT500" maxlength="20" style="text-transform:uppercase">
+<div style="display:flex;gap:8px"><div style="flex:1"><label>Jenis</label><select id="promoType"><option value="rp">Potongan Rp</option><option value="pct">Persen (%)</option></select></div><div style="flex:1"><label>Nilai</label><input id="promoValue" type="number" min="0" placeholder="500"></div></div>
+<label>Berlaku untuk</label><select id="promoPkg"></select>
+<div style="display:flex;gap:8px"><div style="flex:1"><label>Kadaluarsa (opsional)</label><input id="promoExp" type="date"></div><div style="flex:1"><label>Batas pakai (0 = tanpa batas)</label><input id="promoMax" type="number" min="0" value="0"></div></div>
+<button class="btn btn-blue" id="btnPromoAdd" type="button" style="margin-top:12px">Tambah Kode Promo</button>
+<div id="promoList" style="margin-top:12px"></div></div>
+<div class="card"><h3>📱 Gambar QRIS statis</h3>
+<p class="muted">Upload gambar QRIS dari merchant. Gambar disimpan di perangkat ini saja.</p>
+<input id="qrisFile" type="file" accept="image/*">
+<div style="text-align:center;margin-top:10px"><img id="qrisPreview" style="max-width:220px;width:100%;border-radius:12px;display:none"></div>
+<button class="btn btn-ghost btn-sm" id="btnDelQris" type="button">Hapus gambar QRIS</button></div>
+<div class="card"><h3>🔒 PIN kasir</h3>
+<p class="muted">PIN default: <b>1234</b>. Segera ganti. PIN ini hanya kunci layar di browser — <b>bukan keamanan server</b> dan tidak melindungi data dari orang yang membuka file/database perangkat ini.</p>
+<label>PIN lama</label><input id="pinOld" type="password" inputmode="numeric" maxlength="6">
+<label>PIN baru (4–6 digit)</label><input id="pinNew" type="password" inputmode="numeric" maxlength="6">
+<label><input type="checkbox" id="setAutoLock" style="width:20px;height:20px"> Kunci otomatis setelah 10 menit tidak dipakai</label>
+<button class="btn btn-blue" id="btnSavePin" type="button" style="margin-top:12px">Ganti PIN</button><p class="muted" id="pinMsg"></p></div>
+<div class="card"><h3>💾 Backup &amp; Restore</h3>
+<p class="muted">Backup berisi semua transaksi, stok, dan tutup kas. Simpan file backup di tempat aman. Data hanya tersimpan di perangkat ini — tidak tersinkronisasi antarperangkat.</p>
+<button class="btn btn-navy" id="btnBackup" type="button">⬇ Backup JSON</button>
+<div style="height:10px"></div>
+<label>Restore dari file JSON</label><input id="restoreFile" type="file" accept=".json,application/json">
+<button class="btn btn-red" id="btnRestore" type="button" style="margin-top:10px">Restore (mengganti semua data)</button>
+<p class="muted" id="restoreMsg"></p></div>
+<div class="card"><h3>⚠️ Reset data</h3>
+<p class="muted">Menghapus <b>semua</b> transaksi, stok, dan tutup kas di perangkat ini. Tidak bisa dibatalkan.</p>
+<button class="btn btn-red" id="btnReset" type="button">Reset Semua Data…</button></div>
+<div class="card"><h3>ℹ️ Tentang</h3><p class="muted">KASIR WIFI WARUNG PAK DARUM v1.4.1 — Web App statis (HTML/CSS/JS + IndexedDB). Bisa di-hosting di GitHub Pages tanpa PHP/MySQL. Integrasi MikroTik <b>belum aktif</b> di versi ini; stok berasal dari CSV yang diimpor admin. Panduan lengkap ada di README.md.</p></div>
 </section>
 </main>
-<div id="receiptArea"><div class="receipt" id="receipt"></div></div>
-<script>
-const KEY='wpd_cashier_v1';
-const packages={6:{label:'6 JAM',price:2000},1:{label:'1 HARI',price:3000},7:{label:'7 HARI',price:15000},30:{label:'30 HARI',price:50000}};
-let db=load(), chosen='6', payment='Tunai', lastSale=null, qrisData='';
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||{vouchers:{6:[],1:[],7:[],30:[]},sales:[],settings:{shopName:'@WIFI WARUNG PAK DARUM',shopWa:''}}}catch(e){return {vouchers:{6:[],1:[],7:[],30:[]},sales:[],settings:{shopName:'@WIFI WARUNG PAK DARUM',shopWa:''}}}}
-function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function soldSet(){return new Set(db.sales.map(x=>x.code))}
-function available(k){let sold=soldSet();return (db.vouchers[k]||[]).filter(x=>!sold.has(x))}
-function money(n){return 'Rp'+Number(n).toLocaleString('id-ID')}
-function render(){
- for(let k of ['6','1','7','30'])document.getElementById('s'+k).textContent=available(k).length;
- document.getElementById('products').innerHTML=Object.entries(packages).map(([k,p])=>`<button class="product ${chosen===k?'selected':''}" data-pkg="${k}"><strong>${p.label}</strong><div class="price">${money(p.price)}</div><div class="stock">Stok tersedia: ${available(k).length}</div></button>`).join('');
- document.querySelectorAll('[data-pkg]').forEach(b=>b.onclick=()=>{chosen=b.dataset.pkg;render()});
- document.getElementById('stockTable').innerHTML='<table><tr><th>Paket</th><th>Total impor</th><th>Tersedia</th><th>Terjual</th></tr>'+Object.entries(packages).map(([k,p])=>`<tr><td>${p.label}</td><td>${(db.vouchers[k]||[]).length}</td><td>${available(k).length}</td><td>${db.sales.filter(s=>s.pkg===k).length}</td></tr>`).join('')+'</table>';
- document.getElementById('historyTable').innerHTML=db.sales.length?'<table><tr><th>Waktu</th><th>Paket</th><th>Kode</th><th>Bayar</th><th>Jumlah</th></tr>'+db.sales.slice().reverse().map(s=>`<tr><td>${esc(new Date(s.time).toLocaleString('id-ID'))}</td><td>${packages[s.pkg].label}</td><td><b>${esc(s.code)}</b></td><td>${s.payment}</td><td>${money(s.amount)}</td></tr>`).join('')+'</table>':'<p class="muted">Belum ada transaksi.</p>';
- document.getElementById('shopName').value=db.settings.shopName||'@WIFI WARUNG PAK DARUM';document.getElementById('shopWa').value=db.settings.shopWa||'';
-}
-document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==b.dataset.tab));});
-document.querySelectorAll('.pay').forEach(b=>b.onclick=()=>{payment=b.dataset.pay;document.querySelectorAll('.pay').forEach(x=>x.classList.toggle('selected',x===b));document.getElementById('qrisNote').classList.toggle('hidden',payment!=='QRIS')});
-document.getElementById('sell').onclick=()=>{
- let list=available(chosen);if(!list.length){alert('Stok paket ini kosong. Impor CSV voucher terlebih dahulu.');return}
- if(payment==='QRIS'&&!confirm('Pastikan pembayaran QRIS sudah masuk ke rekening/merchant warung. Lanjutkan alokasi voucher?'))return;
- let code=list[0];lastSale={id:Date.now(),time:new Date().toISOString(),pkg:chosen,code,payment,amount:packages[chosen].price,buyer:document.getElementById('buyer').value.trim()};
- db.sales.push(lastSale);save();showSale(lastSale);
-};
-function receiptHTML(s){let p=packages[s.pkg];return `<h3>${esc(db.settings.shopName||'@WIFI WARUNG PAK DARUM')}</h3><div class="center">VOUCHER INTERNET</div><hr>Waktu: ${new Date(s.time).toLocaleString('id-ID')}<br>Paket: ${p.label}<br>Harga: ${money(p.price)}<br>Bayar: ${s.payment}<hr><div class="center">KODE VOUCHER</div><div class="code">${esc(s.code)}</div><div class="center">Masukkan kode pada halaman login WiFi.<br>Terima kasih telah membeli!</div><hr><div class="center">WIFI WARUNG PAK DARUM</div>`}
-function showSale(s){document.getElementById('saleResult').classList.remove('hidden');document.getElementById('saleSummary').innerHTML=`<p><b>${packages[s.pkg].label}</b> · ${money(s.amount)} · ${s.payment}</p><div style="font-size:26px;font-weight:900;letter-spacing:2px;text-align:center;padding:15px;background:#eef5ff;border-radius:12px">${esc(s.code)}</div><p class="muted">Kode sudah ditandai terjual dan tidak akan dipilih lagi.</p>`;document.getElementById('receipt').innerHTML=receiptHTML(s)}
-document.getElementById('printBtn').onclick=()=>window.print();
-document.getElementById('copyBtn').onclick=()=>navigator.clipboard?.writeText(lastSale.code).then(()=>alert('Kode disalin.')).catch(()=>alert('Kode: '+lastSale.code));
-document.getElementById('waBtn').onclick=()=>{let s=lastSale,txt=`Voucher WiFi Warung Pak Darum\\nPaket: ${packages[s.pkg].label}\\nKode: ${s.code}\\nHarga: ${money(s.amount)}`;let wa=db.settings.shopWa?`https://wa.me/${db.settings.shopWa}?text=${encodeURIComponent(txt)}`:`https://wa.me/?text=${encodeURIComponent(txt)}`;window.open(wa,'_blank')};
-function parseCSV(text){let rows=[],row=[],v='',q=false;for(let i=0;i<text.length;i++){let c=text[i];if(c==='"'&&q&&text[i+1]==='"'){v+='"';i++}else if(c==='"')q=!q;else if(c===','&&!q){row.push(v);v=''}else if((c==='\n'||c==='\r')&&!q){if(c==='\r'&&text[i+1]==='\n')i++;row.push(v);if(row.some(x=>x.trim()))rows.push(row);row=[];v=''}else v+=c}row.push(v);if(row.some(x=>x.trim()))rows.push(row);return rows}
-document.getElementById('importBtn').onclick=async()=>{let f=document.getElementById('csvFile').files[0],k=document.getElementById('csvPackage').value;if(!f){alert('Pilih file CSV terlebih dahulu.');return}let rows=parseCSV(await f.text()),head=rows.shift().map(x=>x.trim().toLowerCase().replace(/^\ufeff/,'')),idx=head.indexOf('username');if(idx<0){alert('Kolom Username tidak ditemukan.');return}let before=db.vouchers[k].length;let seen=new Set(Object.values(db.vouchers).flat());for(let r of rows){let code=(r[idx]||'').trim();if(code&&!seen.has(code)){db.vouchers[k].push(code);seen.add(code)}}save();document.getElementById('importMsg').textContent=`Berhasil menambahkan ${db.vouchers[k].length-before} kode unik ke paket ${packages[k].label}. Kolom Password tidak dibaca.`;};
-document.getElementById('exportBtn').onclick=()=>{let rows=[['Waktu','Paket','Kode','Pembayaran','Jumlah'],...db.sales.map(s=>[s.time,packages[s.pkg].label,s.code,s.payment,s.amount])];download('riwayat-penjualan-wifi.csv',rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n'))};
-document.getElementById('clearHistory').onclick=()=>{if(confirm('Hapus seluruh riwayat transaksi? Stok voucher akan kembali tersedia. Pastikan sudah ekspor laporan.')){db.sales=[];save()}};
-function download(name,data,type='text/plain'){let a=document.createElement('a'),u=URL.createObjectURL(new Blob([data],{type}));a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
-document.getElementById('saveSettings').onclick=()=>{db.settings.shopName=document.getElementById('shopName').value.trim()||'@WIFI WARUNG PAK DARUM';db.settings.shopWa=document.getElementById('shopWa').value.trim();save();alert('Pengaturan disimpan.')};
-document.getElementById('qrisImage').onchange=e=>{let f=e.target.files[0];if(!f)return;let rd=new FileReader();rd.onload=()=>{qrisData=rd.result;document.getElementById('qrisPreview').innerHTML=`<img alt="QRIS" src="${qrisData}" style="max-width:180px;margin-top:10px">`};rd.readAsDataURL(f)};
-document.getElementById('backup').onclick=()=>download('backup-kasir-wifi.json',JSON.stringify(db,null,2),'application/json');
-document.getElementById('restoreFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let x=JSON.parse(await f.text());if(!x.vouchers||!x.sales)throw Error();db=x;save();alert('Cadangan dipulihkan.')}catch(err){alert('File cadangan tidak valid.')}};
-render();
-</script></body></html>
+
+<nav id="bottomNav">
+<button data-page="dashboard" class="on" type="button"><span class="ic">📊</span>Dashboard</button>
+<button data-page="kasir" type="button"><span class="ic">🧾</span>Kasir</button>
+<button data-page="member" type="button"><span class="ic">👥</span>Member</button>
+<button data-page="stok" type="button"><span class="ic">📦</span>Stok</button>
+<button data-page="riwayat" type="button"><span class="ic">🕘</span>Riwayat</button>
+<button data-page="laporan" type="button"><span class="ic">📈</span>Laporan</button>
+<button data-page="pengaturan" type="button"><span class="ic">⚙️</span>Pengaturan</button>
+</nav>
+
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+
+<div id="lock" class="hidden"><div class="box">
+<div style="font-size:42px">🔒</div><h2 style="margin:8px 0 4px">Kasir Terkunci</h2>
+<p class="muted">Masukkan PIN kasir untuk membuka aplikasi.<br>PIN default: 1234</p>
+<input id="pinInput" type="password" inputmode="numeric" maxlength="6" placeholder="••••">
+<div style="height:12px"></div>
+<button class="btn btn-navy" id="btnUnlock" type="button">Buka Kasir</button>
+<p class="muted" id="pinErr" style="color:var(--red)"></p>
+</div></div>
+
+<footer>Data tersimpan lokal di perangkat ini (IndexedDB). Tidak ada sinkronisasi otomatis antarperangkat. QRIS manual — selalu periksa pembayaran di aplikasi rekening/merchant sebelum konfirmasi.</footer>
+<script src="app.js"></script>
+</body>
+</html>

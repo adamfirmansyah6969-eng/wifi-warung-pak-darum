@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b2a5b">
+<title>Cek Voucher WiFi — Warung Pak Darum</title>
+<style>
+:root{--navy:#0b2a5b;--royal:#1458c4;--gold:#d4a017;--bg:#f4f6fb;--ink:#17233b;--mut:#64748b;--line:#e2e8f0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header{background:linear-gradient(135deg,#0b2a5b,#1458c4);color:#fff;padding:22px 16px;text-align:center}
+header h1{margin:0;font-size:19px}header p{margin:6px 0 0;font-size:13px;opacity:.85}
+main{max-width:520px;margin:0 auto;padding:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#334155}
+input{width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:13px;font-size:18px;text-transform:uppercase;letter-spacing:1px}
+button{width:100%;border:0;border-radius:12px;padding:14px;font-size:16px;font-weight:700;background:var(--navy);color:#fff;cursor:pointer;margin-top:12px}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.kv b{text-align:right}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px}
+.b-ok{background:#dcfce7;color:#166534}.b-info{background:#dbeafe;color:#1e40af}.b-no{background:#fee2e2;color:#991b1b}
+.muted{color:var(--mut);font-size:13px;line-height:1.6}
+a{color:var(--royal)}
+</style>
+</head>
+<body>
+<header><h1>🔍 CEK VOUCHER WIFI</h1><p>WARUNG PAK DARUM &bull; @WIFI WARUNG PAK DARUM</p></header>
+<main>
+<div class="card">
+<label>Masukkan kode voucher</label>
+<input id="code" placeholder="Contoh: ABC1234" autocomplete="off" maxlength="30">
+<button id="btn" type="button">Cek Voucher</button>
+<div id="result" style="margin-top:14px"></div>
+</div>
+<div class="card"><p class="muted"><b>Cara login WiFi:</b> buka halaman login hotspot, masukkan kode di atas sebagai username dan password (keduanya sama).<br><br><b>Catatan:</b> sisa waktu di halaman ini adalah <b>perkiraan</b> dari waktu beli + durasi paket. Masa aktif sebenarnya mengikuti router MikroTik warung. Kalau kode tidak ditemukan, mungkin kode belum pernah masuk ke aplikasi kasir di perangkat ini — tanyakan ke kasir warung.</p></div>
+<p style="text-align:center"><a href="index.html">← Kembali ke Kasir</a></p>
+</main>
+<script>
+'use strict';
+const DUR={'6jam':6*3600*1000,'1hari':24*3600*1000,'7hari':7*24*3600*1000,'30hari':30*24*3600*1000};
+const NAMES={'6jam':'Paket Mabar (6 Jam)','1hari':'Paket Seharian (24 Jam)','7hari':'Paket Mingguan (7 Hari)','30hari':'Paket Sultan (30 Hari)'};
+function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open('kasir-wifi-pak-darum',1);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+function getAll(db,store){return new Promise((res,rej)=>{const r=db.transaction(store,'readonly').objectStore(store).getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error);});}
+function fmtDT(ts){return new Date(ts).toLocaleString('id-ID',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+function fmtRem(ms){if(ms==null)return '—';if(ms<=0)return 'Sudah habis (perkiraan)';const m=Math.floor(ms/60000);if(m<60)return m+' menit lagi';const h=Math.floor(m/60);if(h<48)return h+' jam '+(m%60)+' menit lagi';return Math.floor(h/24)+' hari '+(h%24)+' jam lagi';}
+async function check(code){
+  code=(code||'').trim().toUpperCase();const box=document.getElementById('result');
+  if(!code){box.innerHTML='<p class="muted">Masukkan kode voucher dulu.</p>';return;}
+  let vouchers=[],txns=[];
+  try{const db=await openDB();vouchers=await getAll(db,'vouchers');txns=await getAll(db,'transactions');}
+  catch(e){box.innerHTML='<p><b>Data tidak bisa dibaca di perangkat ini.</b><br><span class="muted">Buka halaman ini dari perangkat kasir (atau perangkat yang sama dengan aplikasi kasir), karena data tersimpan lokal di perangkat itu.</span></p>';return;}
+  const v=vouchers.find(x=>String(x.code).toUpperCase()===code);
+  const txn=txns.find(t=>String(t.code).toUpperCase()===code);
+  if(!v){box.innerHTML='<p><b>Kode tidak ditemukan.</b><br><span class="muted">Periksa lagi huruf/angkanya, atau kode ini belum pernah masuk ke aplikasi kasir.</span></p>';return;}
+  if(v.status==='quarantined'){box.innerHTML='<div class="kv"><span>Kode</span><b>'+code+'</b></div><div class="kv"><span>Status</span><b><span class="badge b-no">DIBATALKAN</span></b></div><p class="muted">Kode ini dibatalkan / dikarantina dan tidak bisa dipakai.</p>';return;}
+  if(v.status==='available'){box.innerHTML='<div class="kv"><span>Kode</span><b>'+code+'</b></div><div class="kv"><span>Paket</span><b>'+(NAMES[v.package]||v.package)+'</b></div><div class="kv"><span>Status</span><b><span class="badge b-info">BELUM TERJUAL</span></b></div><p class="muted">Kode ini belum terjual — masa aktif mulai berjalan setelah dibeli di kasir.</p>';return;}
+  const soldAt=v.soldAt||(txn&&txn.ts);const expiry=soldAt?soldAt+(DUR[v.package]||0):null;
+  box.innerHTML='<div class="kv"><span>Kode</span><b>'+code+'</b></div>'
+    +'<div class="kv"><span>Paket</span><b>'+(NAMES[v.package]||v.package)+'</b></div>'
+    +'<div class="kv"><span>Status</span><b><span class="badge b-ok">AKTIF</span></b></div>'
+    +(soldAt?'<div class="kv"><span>Dibeli</span><b>'+fmtDT(soldAt)+'</b></div>':'')
+    +(expiry?'<div class="kv"><span>Perkiraan habis</span><b>'+fmtDT(expiry)+'</b></div><div class="kv"><span>Sisa waktu</span><b>'+fmtRem(expiry-Date.now())+'</b></div>':'')
+    +'<p class="muted" style="margin-top:8px">Perkiraan berdasarkan waktu beli + durasi paket.</p>';
+}
+document.getElementById('btn').onclick=()=>check(document.getElementById('code').value);
+document.getElementById('code').addEventListener('keydown',e=>{if(e.key==='Enter')check(e.target.value);});
+const q=new URLSearchParams(location.search).get('kode');
+if(q){document.getElementById('code').value=q;check(q);}
+</script>
+</body>
+</html>
